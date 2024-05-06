@@ -6,20 +6,23 @@
     <title>memory</title>
 </head>
 <body>
-    <div id="image-container" class="image-container">
-        <form class="box" action="/upload" method="post" enctype="multipart/form-data">
-            <input id="file" type="file" name="file">
-            <input name="pw" style="display: none;">
-            <input id="submit" type="submit" value="업로드">
-        </form>
-        <button onclick="login()">로그인</button>
-        <button onclick="logout()">로그아웃</button>
-    </div>
+    <form id="upload" class="box" action="/upload" method="post" enctype="multipart/form-data">
+        <input id="file" type="file" name="file">
+        <input id="pw" name="pw" style="display: none;" value="">
+        <input id="submit" type="submit" value="업로드">
+    </form>
+    <button onclick="login()">로그인</button>
+    <button onclick="logout()">로그아웃</button>
+    <div id="image-container" class="image-container"></div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 <script>
-    var value = document.cookie.match('(^|;) ?' + 'pw' + '=([^;]*)(;|$)')
+    let value = document.cookie.match('(^|;) ?' + 'pw' + '=([^;]*)(;|$)')
     let pw = value? value[2] : null
+
+    document.getElementById("upload").onsubmit=function() {
+        document.getElementById("pw").value = pw
+    }
 
     function login() {
         pw = window.prompt("비밀번호를 대라 닝겐")
@@ -48,24 +51,22 @@
     }
     show_image()
 </script>
-<!-- <style>
+<style>
     body {
         margin: 0;
         padding: 0;
-        height: 100vw;
-        width: 100vh;
     }
 
     .image-container {
-        width: 100vw;
+        width: 100%
     }
  
-    .box {
+    /* .box {
         margin: auto;
         position: relative;
         width: 70%;
         height: 60px;
-        /* background-color: #FFC55A; */
+        background-color: #FFC55A;
         border: 5px solid black;
         margin-top: 10px;
         margin-bottom: 10px;
@@ -75,20 +76,20 @@
         text-align: center;
         justify-content: center ;
         align-items: center;
-    }
+    } */
 
-    .file {
+    /* .file {
         padding: 5px 25px;
-        /* background-color: #FFC55A; */
+        background-color: #FFC55A;
         border-radius: 4px;
         width: 150px;
         border: 2px solid black;
         color: grey;
         cursor: pointer;
         margin-right: 5px;
-    }
+    } */
 
-    .submit {
+    /* .submit {
         padding: 5px 25px;
         background-color: grey;
         border-radius: 4px;
@@ -96,10 +97,10 @@
         color: black;
         cursor: pointer;
         margin-left: 5px;
-    }
+    } */
 
     .image {
-        margin: auto;
+        margin: 0 auto;
         position: relative;
         width: 70%;
         /* background-color: #FFC55A; */
@@ -124,5 +125,5 @@
         height: 100%;
         object-fit: contain;
     }
-</style> -->
+</style>
 </html>

@@ -17,6 +17,7 @@ def home():
 def upload():
     image = request.files['file']
     tried_pw = request.form['pw']
+    print(tried_pw)
     file_name = image.filename
     if tried_pw == password and '.' in file_name and file_name.split('.')[-1] in ['jpg', 'jpeg', 'png', 'bmp']:
         ext = file_name.split('.')[-1]
@@ -43,4 +44,4 @@ def image_list(tried_pw):
     return redirect('/')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
