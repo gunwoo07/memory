@@ -9,13 +9,30 @@
     <div id="image-container" class="image-container">
         <form class="box" action="/upload" method="post" enctype="multipart/form-data">
             <input id="file" type="file" name="file">
-            <input id="submit" type="submit">
+            <input name="pw" style="display: none;">
+            <input id="submit" type="submit" value="업로드">
         </form>
+        <button onclick="login()">로그인</button>
+        <button onclick="logout()">로그아웃</button>
     </div>
 </body>
 <script>
+    var value = document.cookie.match('(^|;) ?' + 'pw' + '=([^;]*)(;|$)')
+    let pw = value? value[2] : null
+
+    function login() {
+        pw = window.prompt("비밀번호를 대라 닝겐")
+        document.cookie = 'pw=' + pw
+        show_image()
+    }
+
+    function logout() {
+        document.cookie = 'pw=; expires=Thu, 01 JAN 1999 00:00:10 GMT'
+        window.location.href='/'
+    }
+
     async function show_image() {
-        let res = await fetch('/imagelist')
+        let res = await fetch('/imagelist' + '/' + pw)
         let result = await res.json()
         let images = result.image_list
 
@@ -23,7 +40,7 @@
             let bgDiv = document.createElement('div')
             bgDiv.className = "image"
             let bgImage = document.createElement('img')
-            bgImage.src = '/image/' + images[i]
+            bgImage.src = '/image/' + images[i] + '/' + pw
             bgDiv.appendChild(bgImage)
             document.getElementById('image-container').appendChild(bgDiv)
         }
