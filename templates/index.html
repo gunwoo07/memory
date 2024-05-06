@@ -8,10 +8,8 @@
 <body>
     <div id="image-container" class="image-container">
         <form class="box" action="/upload" method="post" enctype="multipart/form-data">
-            <label class="file" for="file">파일 선택</label>
-            <input id="file" type="file" name="file" style="display: none">
-            <label class="submit" for="submit">업로드</label>
-            <input id="submit" type="submit" style="display: none;">
+            <input id="file" type="file" name="file">
+            <input id="submit" type="submit">
         </form>
     </div>
 </body>
@@ -32,7 +30,7 @@
     }
     show_image()
 </script>
-<style>
+<!-- <style>
     body {
         margin: 0;
         padding: 0;
@@ -108,5 +106,5 @@
         height: 100%;
         object-fit: contain;
     }
-</style>
+</style> -->
 </html>
