@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, send_from_directory
+from flask import Flask, request, render_template, redirect, send_from_directory, jsonify
 from werkzeug.utils import secure_filename
 import os
 import time
@@ -25,14 +25,16 @@ def upload():
 def image(file_name):
     image_list = os.listdir(data_dir)
     secured_file_name = secure_filename(file_name)
-    print(secured_file_name)
     
     for image in image_list:
-        print(image.split('.')[0], secured_file_name, image.split('.')[0]==secured_file_name)
         if image.split('.')[0] == secured_file_name:
             return send_from_directory(data_dir, image)
 
     return redirect('/')
+
+@app.route('/imagelist')
+def image_list():
+    return jsonify({'image_list':[a.split('.')[0] for a in os.listdir(data_dir)]})
 
 if __name__ == '__main__':
     app.run(debug=True)
