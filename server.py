@@ -1,12 +1,13 @@
 from flask import Flask, request, render_template, redirect, send_from_directory, jsonify
 from werkzeug.utils import secure_filename
+import hashlib
 import os
 import time
 import random
 
 app = Flask(__name__)
 data_dir = os.getcwd() + '/data'
-password = "play"
+password = hashlib.sha256("play".encode()).hexdigest()
 
 @app.route('/')
 def home():

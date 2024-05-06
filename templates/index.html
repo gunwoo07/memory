@@ -16,14 +16,15 @@
         <button onclick="logout()">로그아웃</button>
     </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 <script>
     var value = document.cookie.match('(^|;) ?' + 'pw' + '=([^;]*)(;|$)')
     let pw = value? value[2] : null
 
     function login() {
         pw = window.prompt("비밀번호를 대라 닝겐")
-        document.cookie = 'pw=' + pw
-        show_image()
+        document.cookie = 'pw=' + CryptoJS.SHA256(pw).toString(CryptoJS.enc.Hex)
+        window.location.href='/'
     }
 
     function logout() {
